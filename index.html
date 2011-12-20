@@ -1,0 +1,62 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Vommo</title> 
+
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
+	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
+	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
+</head> 
+<body> 
+
+<!-- Start of first page -->
+<div data-role="page" id="foo">
+
+	<div data-role="header">
+		<h1>Vommo</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+
+		<div data-role="fieldcontain">
+    <label for="cause">Cause:</label>
+    <input type="text" name="cause" id="cause" value=""  />
+</div>	
+<div data-role="fieldcontain">
+    <label for="from">From:</label>
+    <input name="from" id="from" type="date" data-role="datebox" data-options='{"mode": "calbox"}'/>
+</div>	
+<div data-role="fieldcontain">
+    <label for="to">To:</label>
+    <input name="to" id="to" type="date" data-role="datebox" data-options='{"mode": "calbox"}'/>
+</div>	
+
+<fieldset data-role="controlgroup">
+	<legend>Choose leave type:</legend>
+     	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
+     	<label for="radio-choice-1">Annual Leave</label>
+
+     	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+     	<label for="radio-choice-2">Sick Leave</label>
+</fieldset>
+
+<div data-role="fieldcontain">
+    <label for="sendto">Send To:</label>
+    <input type="text" name="sendto" id="sendto" value=""  />
+</div>	
+
+		<a href="mailto:china_time_off@thoughtworks.com?subject=I would like to take leave." data-role="button">Send Vacation Request</a>
+
+	</div><!-- /content -->
+
+	</body>
+
+</html>
