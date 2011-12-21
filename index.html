@@ -28,7 +28,7 @@
 
 <div data-role="fieldcontain">
     <label for="cause">Cause:</label>
-    <input type="text" name="cause" id="cause" value=""  />
+    <input type="text" name="cause" id="cause" value=""  onblur="status();"/>
 </div>	
 <div data-role="fieldcontain">
     <label for="from">From:</label>
@@ -41,11 +41,11 @@
 
 <fieldset data-role="controlgroup">
 	<legend>Choose leave type:</legend>
-     	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
-     	<label for="radio-choice-1">Annual Leave</label>
+     	<input type="radio" name="leave-type" id="leave-type-1" value="choice-1" checked="checked" />
+     	<label for="leave-type-1">Annual Leave</label>
 
-     	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
-     	<label for="radio-choice-2">Sick Leave</label>
+     	<input type="radio" name="leave-type" id="leave-type-2" value="choice-2"  />
+     	<label for="leave-type-2">Sick Leave</label>
 </fieldset>
 
 <div data-role="fieldcontain">
@@ -66,8 +66,7 @@
     </fieldset>
 </div>
 <div data-role="fieldcontain">
-
-		<a href="mailto:china_time_off@thoughtworks.com?subject=I would like to take leave." id="sendButton" data-role="button">Send Vacation Request</a>
+	<a href="mailto:china_time_off@thoughtworks.com?subject=I would like to take leave." id="sendButton" data-role="button">Send Vacation Request</a>
 </div>
 	</div><!-- /content -->
 
@@ -75,9 +74,31 @@
 	
 	<script>
 	$(document).ready(function () {
-            $('#from').scroller({mode:'clickpick'});
-			$('#to').scroller({mode:'clickpick'});
-        });
+        $('#from').scroller({mode:'clickpick'});
+		$('#to').scroller({mode:'clickpick'});
+		
+		
+    });
+    
+    function status(){
+    	var status = {};
+    	status.cause = $("#cause").val();
+    	status.from  = $("#from").val();
+    	status.to = $("#to").val();
+    	status.leaveType = $("leave-type").val();
+    	
+    	console.debug(status);
+    }
+    
+    
+    var vommo = {};
+    vommo.statics = {
+    	"twchina" : "twchina@thoughtworks.com",
+    	"beijingoffice" : "beijingoffice@thoughtworks",
+    	"xianoffice" : "xianoffice@thoughtworks",
+    	"china_time_off" : "china_time_off@thoughtworks.com"
+    };
+        
 	</script>
 
 </html>
