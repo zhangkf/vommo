@@ -74,8 +74,8 @@
 	
 	<script>
 	$(document).ready(function () {
-        $('#from').scroller({mode:'clickpick'});
-		$('#to').scroller({mode:'clickpick'});
+        $('#from').scroller();
+		$('#to').scroller();
 		
 		
     });
@@ -89,12 +89,28 @@
     	status.sendTo = $("#sendto").val();
     	status.copyTo = new Array();
     	$("input[name='copyto']:checked").each(function(){
-    		status.copyTo.push($(this).val());
+    		$(this).val() && status.copyTo.push($(this).val());
     	});
     	
-    	console.debug(status);
+    	vommo.status = status;
+    	buildMailTo();
     }
     
+    
+    function buildMailTo() {
+    	var receivers = new Array();
+    	receivers.push(vommo.status.sendTo);
+    	for (var i = 0; i < vommo.status.copyTo.length; i++) {
+    		receivers.push(vommo.status.copyTo[i]);
+    	}
+    	console.debug(receivers);
+    	
+    	var mailTo = new Array();
+    	mailTo = ["mailto:", receivers.join(","), "?subject=I would like to take leave."].join("");
+    	console.log(mailTo);
+    	$("#sendButton").attr("href", mailTo);
+    	
+    }
     
     var vommo = {};
     vommo.statics = {
