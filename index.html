@@ -26,19 +26,6 @@
 
 	<div data-role="content">	
 
-<div data-role="fieldcontain">
-    <label for="cause">Cause:</label>
-    <input type="text" name="cause" id="cause" value=""  onblur="buildHref();"/>
-</div>	
-<div data-role="fieldcontain">
-    <label for="from">From:</label>
-	<input type="text" name="from" id="from" class="mobiscroll" onblur="buildHref();"/>
-</div>	
-<div data-role="fieldcontain">
-    <label for="to">To:</label>
-	<input type="text" name="to" id="to" class="mobiscroll" onblur="buildHref();"/>
-</div>	
-
 <fieldset data-role="controlgroup">
 	<legend>Choose leave type:</legend>
      	<input type="radio" name="leave-type" id="leave-type-1" value="Annual Leave" checked="checked" onclick="buildHref();"/>
@@ -49,12 +36,26 @@
 </fieldset>
 
 <div data-role="fieldcontain">
-    <label for="sendto">Send To:</label>
+    <label for="from">Vacation start:</label>
+	<input type="text" name="from" id="from" class="mobiscroll" onblur="buildHref();"/>
+</div>	
+<div data-role="fieldcontain">
+    <label for="to">Vacation end:</label>
+	<input type="text" name="to" id="to" class="mobiscroll" onblur="buildHref();"/>
+</div>	
+
+<div data-role="fieldcontain">
+    <label for="cause">Why vacation:</label>
+    <input type="text" name="cause" id="cause" value=""  onblur="buildHref();"/>
+</div>	
+
+<div data-role="fieldcontain">
+    <label for="sendto">Send request to:</label>
     <input type="text" name="sendto" id="sendto" value=""  onblur="buildHref();"/>
 </div>	
 <div data-role="fieldcontain">
     <fieldset data-role="controlgroup">
-	   <legend>Copy to:</legend>
+	   <legend>And copy to:</legend>
 	   <input type="checkbox" name="copyto" id="checkbox-1" class="custom" value="twchina" onclick="buildHref();"/>
 	   <label for="checkbox-1">TWChina</label>
 	   <input type="checkbox" name="copyto" id="checkbox-2" class="custom" value="beijingoffice" onclick="buildHref();"/>
