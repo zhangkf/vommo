@@ -45,13 +45,13 @@
 </div>	
 
 <div data-role="fieldcontain">
-    <label for="cause">Why vacation:</label>
+    <label for="cause">Why vacation: (optional)</label>
     <input type="text" name="cause" id="cause" value=""  onblur="buildHref();"/>
 </div>	
 
 <div data-role="fieldcontain">
-    <label for="sendto">Send request to:</label>
-    <input type="text" name="sendto" id="sendto" value=""  onblur="buildHref();"/>
+    <label for="sendto">Send request to: (optional)</label>
+    <input type="email" name="sendto" id="sendto" value=""  onblur="buildHref();"/>
 </div>	
 <div data-role="fieldcontain">
     <fieldset data-role="controlgroup">
@@ -100,7 +100,7 @@
     	var status = collectParameters();
     	var mailTo = buildMailTo(status);
 		var subject = buildSubject(status);
-		console.debug(mailTo+subject);
+		//console.debug(mailTo+subject);
 		$("#sendButton").attr("href", mailTo+subject);
 		
     }
