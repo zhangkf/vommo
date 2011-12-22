@@ -103,11 +103,11 @@
     	for (var i = 0; i < vommo.status.copyTo.length; i++) {
     		receivers.push(vommo.status.copyTo[i]);
     	}
-    	console.debug(receivers);
+    	//console.debug(receivers);
     	
     	var mailTo = new Array();
     	mailTo = ["mailto:", receivers.join(","), "?subject=I would like to take leave."].join("");
-    	console.log(mailTo);
+    	//console.log(mailTo);
     	$("#sendButton").attr("href", mailTo);
     	
     }
