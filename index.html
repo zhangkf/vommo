@@ -76,7 +76,7 @@
 					
 					<li>
 						<h3>Send To</h3>
-						<p>Default: china_time_off</p>
+						<p id="send-to-comment">Default: china_time_off</p>
 
 						<ul>
 								<li>
@@ -179,8 +179,7 @@
     }
     
     function buildSubject(status) {
-    	var subject = ["?subject=I would like to take", $("#leave-type-comment").text(), $("#from-to-comment").text()].join(" ");
-    	return subject;
+    	return ["?subject=I would like to take", $("#leave-type-comment").text(), $("#from-to-comment").text()].join(" ");
     }
     
     function buildReceivers(status) {
@@ -198,8 +197,7 @@
     
     
     function buildMailTo(status) {
-    	var mailTo = ["mailto:", buildReceivers(status)].join("");
-		return mailTo;    	
+    	return ["mailto:", buildReceivers(status)].join("");    	
     }
     
     var vommo = {};
