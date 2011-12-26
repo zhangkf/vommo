@@ -128,18 +128,20 @@
 <div data-role="fieldcontain">
 	<a href="mailto:china_time_off@thoughtworks.com?subject=I would like to take leave." id="sendButton" data-role="button">Send Vacation Request</a>
 </div>
-	</div><!-- /content -->
+</div><!-- /content -->
 
-	</body>
+</body>
 	
-	<script>
-	$(document).ready(function () {
-        $('#from').scroller();
-		$('#to').scroller();
-	    		
-    });
-
-
+<script>
+	function isApple(){
+    		var ua = navigator.userAgent;
+    		return ua.match(/iPhone/i) || ua.match(/iPod/i) || ua.match(/iPad/i);
+    	}
+    	
+	$(document).ready(function(){
+		$('#from').scroller({mode: isApple()? 'scroller' : "clickpick"});
+		$('#to').scroller({mode: isApple()? 'scroller' : "clickpick"});
+	});
     
     function collectParameters() {
     	var status = {};
