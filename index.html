@@ -56,7 +56,7 @@
 					</li>
 					<li>
 						<h3>Leave Period</h3>
-						<p>Default: tomorrow</p>
+						<p id="from-to-comment">tomorrow</p>
 
 						<ul>
 							<li>
@@ -73,35 +73,16 @@
 							</li>
 						</ul>
 					</li>
-					<li>
-						<h3>Leave Cause</h3>
-						<p>Input your leave cause here.(optional)</p>
-
-						<ul>
-							<li>
-								<div data-role="fieldcontain">
-								    <label for="cause">Why vacation: (optional)</label>
-								    <input type="text" name="cause" id="cause" value=""  onblur="buildHref();"/>
-								</div>	
-							</li>
-											
-						</ul>
-					</li>
+					
 					<li>
 						<h3>Send To</h3>
 						<p>Default: china_time_off</p>
 
 						<ul>
-							<li>
-								<div data-role="fieldcontain">
-								    <label for="sendto">Send request to: (optional)</label>
-								    <input type="email" name="sendto" id="sendto" value=""  onblur="buildHref();"/>
-								</div>	
-								</li>
 								<li>
 								<div data-role="fieldcontain">
 								    <fieldset data-role="controlgroup">
-									   <legend>And copy to:</legend>
+									   <legend>Send to:</legend>
 									   <input type="checkbox" name="copyto" id="checkbox-1" class="custom" value="twchina" onclick="buildHref();"/>
 									   <label for="checkbox-1">TWChina</label>
 									   <input type="checkbox" name="copyto" id="checkbox-2" class="custom" value="beijingoffice" onclick="buildHref();"/>
@@ -114,6 +95,26 @@
 								</div>
 								
 								
+							</li>
+							
+								<li>
+									<div data-role="fieldcontain">
+									    <label for="sendto">Also send to: (optional)</label>
+									    <input type="email" name="sendto" id="sendto" value=""  onblur="buildHref();"/>
+									</div>	
+									</li>				
+						</ul>
+					</li>
+					<li>
+						<h3>Leave Cause</h3>
+						<p>Input your leave cause here.(optional)</p>
+
+						<ul>
+							<li>
+								<div data-role="fieldcontain">
+								    <label for="cause">Why vacation: (optional)</label>
+								    <input type="text" name="cause" id="cause" value=""  onblur="buildHref();"/>
+								</div>	
 							</li>
 											
 						</ul>
@@ -142,20 +143,29 @@
 		$('#from').scroller({mode: isApple()? 'scroller' : "clickpick"});
 		$('#to').scroller({mode: isApple()? 'scroller' : "clickpick"});
 	});
+	
+	function changeListComment(status){
+		$("#leave-type-comment").text(status.leaveType);
+		if(status.from && status.to) $("#from-to-comment").text("from "+status.from+" to "+status.to);
+		if(status.from && !status.to) $("#from-to-comment").text("on "+status.from);
+		if(!status.from && status.to) $("#from-to-comment").text("on "+status.to);
+		if(!status.from && !status.to) $("#from-to-comment").text("tomorrow");
+	}
     
     function collectParameters() {
     	var status = {};
-    	status.cause = $("#cause").val();
-    	status.from  = $("#from").val();
+    	
+		status.leaveType = $("input[name='leave-type']:checked").val();
+		status.from  = $("#from").val();
     	status.to = $("#to").val();
-    	status.leaveType = $("input[name='leave-type']:checked").val();
-		$("#leave-type-comment").text(status.leaveType);
+		status.cause = $("#cause").val();
     	status.sendTo = $("#sendto").val();
     	status.copyTo = new Array();
     	$("input[name='copyto']:checked").each(function(){
     		$(this).val() && status.copyTo.push($(this).val());
     	});
     	//console.debug("status", status);
+		changeListComment(status);
     	return status;	
     }
     
@@ -169,7 +179,7 @@
     }
     
     function buildSubject(status) {
-    	var subject = ["?subject=I would like to take", status.leaveType, "from", status.from, "to", status.to].join(" ");
+    	var subject = ["?subject=I would like to take", $("#leave-type-comment").text(), $("#from-to-comment").text()].join(" ");
     	return subject;
     }
     
