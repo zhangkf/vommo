@@ -63,12 +63,26 @@
 							<div data-role="fieldcontain">
 							    <label for="from">Vacation start:</label>
 								<input type="text" name="from" id="from" class="mobiscroll" onblur="buildHref();"/>
+								    <fieldset data-role="controlgroup" data-type="horizontal" >
+								         	<input type="radio" name="from-am-pm" id="from-am" value="AM" onclick="buildHref();" />
+								         	<label for="from-am">AM</label>
+
+								         	<input type="radio" name="from-am-pm" id="from-pm" value="PM" onclick="buildHref();" />
+								         	<label for="from-pm">PM</label>
+								    </fieldset>
 							</div>
 							</li>
 							<li>	
 							<div data-role="fieldcontain">
 							    <label for="to">Vacation end:</label>
 								<input type="text" name="to" id="to" class="mobiscroll" onblur="buildHref();"/>
+								<fieldset data-role="controlgroup" data-type="horizontal" >
+							         	<input type="radio" name="to-am-pm" id="to-am" value="AM" onclick="buildHref();" />
+							         	<label for="to-am">AM</label>
+
+							         	<input type="radio" name="to-am-pm" id="to-pm" value="PM" onclick="buildHref();" />
+							         	<label for="to-pm">PM</label>
+							    </fieldset>
 							</div>
 							</li>
 						</ul>
@@ -146,10 +160,10 @@
 	
 	function changeListComment(status){
 		$("#leave-type-comment").text(status.leaveType);
-		if(status.from && status.to) $("#from-to-comment").text("from "+status.from+" to "+status.to);
-		if(status.from && !status.to) $("#from-to-comment").text("on "+status.from);
-		if(!status.from && status.to) $("#from-to-comment").text("on "+status.to);
-		if(!status.from && !status.to) $("#from-to-comment").text("tomorrow");
+		if(status.from && status.to) $("#from-to-comment").text("from "+status.from + (status.fromAMPM? " "+status.fromAMPM : "") +" to "+status.to+" "+(status.toAMPM? " "+status.toAMPM : ""));
+		if(status.from && !status.to) $("#from-to-comment").text("on "+status.from+ (status.fromAMPM? " "+status.fromAMPM : ""));
+		if(!status.from && status.to) $("#from-to-comment").text("on "+status.to+ (status.toAMPM? " "+status.toAMPM : ""));
+		if(!status.from && !status.to) $("#from-to-comment").text("tomorrow"+(status.fromAMPM? " "+status.fromAMPM : ""));
 	}
     
     function collectParameters() {
@@ -158,6 +172,8 @@
 		status.leaveType = $("input[name='leave-type']:checked").val();
 		status.from  = $("#from").val();
     	status.to = $("#to").val();
+		status.fromAMPM = $("input[name='from-am-pm']:checked").val();
+		status.toAMPM = $("input[name='to-am-pm']:checked").val();		
 		status.cause = $("#cause").val();
     	status.sendTo = $("#sendto").val();
     	status.copyTo = new Array();
