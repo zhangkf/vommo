@@ -1,62 +1,197 @@
-<!DOCTYPE html> 
-<html> 
-	<head> 
-	<title>Vommo</title> 
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Vommo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="jquery.mobile-1.0.min.css" />
+    <link href="mobiscroll-1.5.2.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
 
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css" />
-	<link type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.css" rel="stylesheet" /> 
-	<link type="text/css" href="http://dev.jtsage.com/jQM-DateBox/css/demos.css" rel="stylesheet" /> 
 	
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jquery.mousewheel.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jquery.mobile.datebox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/jQM-DateBox/demos/extras.js"></script>
-</head> 
-<body> 
-
+	<script type="text/javascript" src="jquery.mobile-1.0.min.js"></script>
+    <script src="mobiscroll-1.5.2.js" type="text/javascript"></script>
+   
+    </head>
+<body>
 <!-- Start of first page -->
 <div data-role="page" id="foo">
-
-	<div data-role="header">
+    <div data-role="header">
 		<h1>Vommo</h1>
 	</div><!-- /header -->
-
-	<div data-role="content">	
-		
-		<div data-role="fieldcontain">
-    <label for="cause">Cause:</label>
-    <input type="text" name="cause" id="cause" value=""  />
-</div>	
-<div data-role="fieldcontain">
-    <label for="from">From:</label>
-    <input name="from" id="from" type="date" data-role="datebox" data-options='{"mode": "calbox"}'/>
-</div>	
-<div data-role="fieldcontain">
-    <label for="to">To:</label>
-    <input name="to" id="to" type="date" data-role="datebox" data-options='{"mode": "calbox"}'/>
-</div>	
-
-<fieldset data-role="controlgroup">
-	<legend>Choose leave type:</legend>
-     	<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
-     	<label for="radio-choice-1">Annual Leave</label>
-
-     	<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
-     	<label for="radio-choice-2">Sick Leave</label>
-</fieldset>
-
-<div data-role="fieldcontain">
-    <label for="sendto">Send To:</label>
-    <input type="text" name="sendto" id="sendto" value=""  />
-</div>	
-
-		<a href="mailto:china_time_off@thoughtworks.com?subject=I would like to take leave." data-role="button">Send Vacation Request</a>
-
+	<div data-role="content">
+		<div class="content-primary">
+            <ul data-role="listview">
+                <li onclick="chooseSickLeave()">
+                    <h3>Not feeling well...</h3>
+                    <ul>
+                    </ul>
+                </li>
+                <li onclick="chooseAnnualLeave()">
+                    <h3>Let's rock it!</h3>
+                    <ul>
+					<li>
+						<div data-role="fieldcontain">
+					    <label for="from">Vacation start:</label>
+						<input type="text" name="from" id="from" class="mobiscroll" onblur="buildFromTo();"/>
+						    <fieldset data-role="controlgroup" data-type="horizontal" >
+						         	<input type="radio" name="from-am-pm" id="from-am" value="AM" onclick="buildFromTo();" />
+						         	<label for="from-am">AM</label>
+						         	<input type="radio" name="from-am-pm" id="from-pm" value="PM" onclick="buildFromTo();" />
+						         	<label for="from-pm">PM</label>
+						    </fieldset>
+						 </div>
+					</li>
+					<li>
+						<div data-role="fieldcontain">
+					    <label for="to">Vacation end:</label>
+						<input type="text" name="to" id="to" class="mobiscroll" onblur="buildFromTo();"/>
+						<fieldset data-role="controlgroup" data-type="horizontal" >
+					         	<input type="radio" name="to-am-pm" id="to-am" value="AM" onclick="buildFromTo();" />
+					         	<label for="to-am">AM</label>
+					         	<input type="radio" name="to-am-pm" id="to-pm" value="PM" onclick="buildFromTo();" />
+					         	<label for="to-pm">PM</label>
+					    </fieldset>
+					    </div>
+					</li>
+					<a href="#send-to-page" data-role="button">Next</a>
+				</ul>
+                </li>
+            </ul>
+        </div>
 	</div><!-- /content -->
+</div>
+<div data-role="page" id="send-to-page">
+	<div data-role="header">
+		<h1>Send to</h1>
+	</div><!-- /header -->
+	<div data-role="content">
+				<div data-role="fieldcontain">
+				    <fieldset data-role="controlgroup">
+					   <legend>Send to:</legend>
+					   <input type="checkbox" name="copyto" id="checkbox-1" class="custom" value="twchina" onclick="buildMailTo();"/>
+					   <label for="checkbox-1">TWChina</label>
+					   <input type="checkbox" name="copyto" id="checkbox-2" class="custom" value="beijingoffice" onclick="buildMailTo();"/>
+					   <label for="checkbox-2">BeijingOffice</label>
+					   <input type="checkbox" name="copyto" id="checkbox-3" class="custom" value="xianoffice" onclick="buildMailTo();"/>
+					   <label for="checkbox-3">XianOffice</label>
+					   <input type="checkbox" name="copyto" id="checkbox-4" class="custom" value="china_time_off" checked="checked" disabled="disabled" />
+					   <label for="checkbox-4">china_time_off</label>
+				    </fieldset>
+				</div>
+					<div data-role="fieldcontain">
+					    <label for="sendto">Also send to: (optional)</label>
+					    <input type="email" name="sendto" id="sendto" value=""  onblur="buildMailTo();"/>
+					</div>
+					
+                <a data-role="button" id="sendButton" href="#" onclick="send(); return true;">Send</a>		
+	</div><!-- /content -->
+</div><!-- /page -->
 
-	</body>
+</body>
+<script>
+    function send(){
+        $('#sendButton').attr("href", vommo.buildURL());
+        console.debug("href: " + vommo.buildURL());
+        return true;
+    }	
+    </script>
+    <script>
+    function Vommo(){
+        this.annual_leave = new Leave("ANNAUL_LEAVE");
+        this.sick_leave = new Leave("SICK_LEAVE");
+        this.current;
+    }
+    
+    Vommo.prototype.chooseAnnualLeave = function() {
+        this.current = this.annual_leave;
+        console.debug(this.current);
+    }
+    
+    Vommo.prototype.chooseSickLeave = function() {
+        this.current = this.sick_leave;
+        console.debug(this.current);
+    }
+    
+    Vommo.prototype.setFromTo = function(from, to, fromAMPM, toAMPM)
+    {
+        this.current.from = from
+        this.current.to = to;
+        this.current.fromAMPM = fromAMPM;
+        this.current.toAMPM = toAMPM;
+        //console.debug(this.current);
+    }
+    
+    Vommo.prototype.setSendTo = function(sendTo){
+        this.sendTo = sendTo;
+    }
+    
+    Vommo.prototype.setCopyTo = function(copyTo){
+        this.copyTo = copyTo;
+    }
 
+    Vommo.prototype.buildURL = function(){
+        var receivers = new Array();
+    	if(status.sendTo){
+    		receivers.push(this.sendTo);
+    	}
+    	for (var i = 0; i < this.copyTo.length; i++) {
+    		if(vommo.statics[this.copyTo[i]])
+    		receivers.push(vommo.statics[this.copyTo[i]]);
+    	}
+    	
+        var mailTo = ["mailto:", receivers.join()].join("");
+        var subject = ["?subject=I would like to take", this.code].join(" ");
+        return mailTo+subject;
+    }
+
+    function Leave(code){
+        this.CODE = code;
+        this.from = null;
+        this.to = null;
+        this.cause = "";
+        this.sendTo = "";
+        this.copyTo = "";
+    }
+    
+    function chooseSickLeave(){
+        vommo.chooseSickLeave();
+    }
+    
+    function chooseAnnualLeave(){
+        vommo.chooseAnnualLeave();
+    }
+    function buildFromTo(){
+        vommo.setFromTo($("#from").val(), 
+                        $("#to").val(),
+                        $("input[name='from-am-pm']:checked").val(),
+                        $("input[name='to-am-pm']:checked").val());
+                        
+        
+    }
+    
+    function buildMailTo(){
+        vommo.setSendTo($("#sendto").val());
+        var copyTo = new Array();
+        $("input[name='copyto']:checked").each(function(){
+    		$(this).val() && copyTo.push($(this).val());
+    	});
+        vommo.setCopyTo(copyTo);
+    }
+
+    </script>
+     <script>
+        var vommo = new Vommo();
+        vommo.statics = {
+    	"twchina" : "twchina@thoughtworks.com",
+    	"beijingoffice" : "beijingoffice@thoughtworks.com",
+    	"xianoffice" : "xianoffice@thoughtworks.com",
+    	"china_time_off" : "china_time_off@thoughtworks.com"
+        };
+    </script>
+    <script>
+    	  $(document).bind("mobileinit", function() {
+		      $.mobile.page.prototype.options.addBackBtn = true;
+              vommo = new Vommo();              
+		 });
+	</script>
 </html>
